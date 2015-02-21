@@ -1,0 +1,99 @@
+---
+layout: post
+title: "Part 4.5: 期待される結果"
+date:   2010-02-21 00:00:00
+categories: onset detection tutorial
+---
+
+原文: [Onset Detection Part 4.5: What to expect](http://www.badlogicgames.com/wordpress/?p=148)
+
+<!--
+As i said in part one of this series sound can be broken down into various frequencies that take part in the overall sound of song for example. In the next article we are going to dive into this topic in detail but for this article there’s something you need to know about frequencies first: Every instrument has a frequency range, the same is true for vocals. This a pitched instruments/voices. Drums and other percussive instruments are often non-pitched and spread over the whole frequency spectrum. Here’s a very interesting char taken from Wikipedia:
+-->
+
+このシリーズのパート 1 で言った通り、音というものは、たとえばある曲の中の全体的な音に参加しているさまざまな周波数に分割することができる。次回の記事ではこのトピックについて詳細を説明していくが、この記事では周波数について最初に知っておく必要のあることについて説明する。それぞれの楽器には周波数の範囲というものを持っており、ボーカルについてもそれが当てはまる。調律された楽器/声ということだ。ドラムや他の打楽器はだいたい調律を持っておらず、周波数のスペクトラムに広くまたがっている。これは Wikipedia から抜粋した非常に興味深い表だ:
+
+![](http://upload.wikimedia.org/wikipedia/en/timeline/dc26f08d2b4ace7e67c063c94a514d49.png)
+
+<!--
+Before we dive into fourier transforms and similar topics i want to give you some impression of what to expect from the onset detector we develop here. For this i prepared a couple of videos for different genres that show what our onset detector will produce. Without explaining the details: in each video you will see 3 plots, the first for low frequencies, the next for mid frequencies and the last one at the bottom for very high frequencies. The red lines gives us an idea where an onset might be located. The green lines is a running average. Any red peak above a green line is a potential onset/beat. With that said let’s see how the detector works on various genres. Let’s start with Pop.
+-->
+
+フーリエ変換とその周辺について学ぶ前に、ここで開発する音の立ち上がり検出器がどんな効果をあげるのかのイメージをつかんでほしい。そのために、音の立ち上がり検出器で出力する異なるジャンルの音楽の動画を用意した。あまり詳細には説明しないが、それぞれの動画では 3 つのプロットを見ることができる。最初のものは低い周波数、次のものは中間の周波数、そして一番下の最後のものはとても高い周波数のプロットだ。赤いラインが音の立ち上がりが存在すると思われる場所を教えてくれている。緑のラインを越えた赤いラインの頂点はどれも潜在的な音の立ち上がり/ビートだ。ここまで説明したから、検出器がさまざまな音楽のジャンルでどのように機能するのか見てみよう。まずはポップス:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EKJmDbTbtQs" frameborder="0" allowfullscreen></iframe>
+
+<!--
+A pretty well known song i guess (yack…). In all three ranges the onsets are clearly visible. This comes from the fact that the song is largely composed of synthesized instruments. Especially the bass and drums leave their impression on the detector and it seems to work pretty well for this genre. On to the next genre: Rock
+-->
+
+とても有名な曲だと思う (うーん…)。3 つすべての範囲で音の立ち上がりが明瞭に可視化されている。なぜなら、この曲がだいたいシンセサイザーで作曲されているからだ。特にベースとドラムが影響を残し、検出器はこのジャンルではとてもうまく機能している。次のジャンルはロックだ:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-9H-_ArekV8" frameborder="0" allowfullscreen></iframe>
+
+<!--
+A song form the all-star band “A perfect circle” called weak and powerless. The drums are again pretty influencial on the overall onset/beat landscape. The detector does it’s job pretty good in this case too. Rock is a bit more difficult for any onset detection schema due its higher noise level. Distorted guitars and basses polute all frequencies pretty heavily and make the detection task a bit harder. However, if the sound engineer responsible for mixing the final song did his job well the frequencies of those instruments that dictate the rythm should stand out and be detectable by our algorithm. Next we have a look at acoustic rock:
+-->
+
+オールスターバンド "A perfect circle" の "weak and powerless" という曲だ。ここでも音の立ち上がり/ビートの風景の中ではドラムの影響力がかなり強い。検出器はこの場合でもかなりいい仕事をしている。ロックは雑音が多く含まれるので音の立ち上がり検出のスキーマにとっては少し難しいジャンルだ。ディストーションのかかったギターやベースはすべての周波数をかなり強く汚染し、検出を少し難しくする。しかし、最終的な曲のミックスを担当したサウンドエンジニアがちゃんと仕事をしていれば、リズムを指示する楽器の周波数が目立ち、私たちのアルゴリズムで検出が可能となる。次にアコースティックロックを見てみよう:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zkbHXsuBHY0" frameborder="0" allowfullscreen></iframe>
+
+<!--
+A song by “Tenacious D” called Explosivo which starts of with an acoustic guitar and then goes into a more heavier part. The detector picks up the strokes of the guitar pretty well in the beginning. When the heavy part kicks in the guitar get’s into the background and the drums become the most influential rythmic section. In the top plot we also can see the drummer playing the kick pretty fast which i normally didn’t hear all that clearly without having the plot. Also note how the hi-hat fades in in the bottom plot before the heavy part starts. All drum parts like hi-hat, cymbals and so on will be recogniseable in that plot.
+-->
+
+"Tenacious D" の Explosivo という曲で、アコースティックギターからはじまり、より重厚なパートに入って行く。検出器は最初のギターのストロークをかなりよく選別している。重厚なパートに入ると、ギターが背景に周りドラムが最も影響力の高いリズムセクションとなる。一番上のプロットではドラマーがかなり速くキックを打っていることが分かるが、これはプロットなしの普通の状態ではこんなに明瞭に聴き取るができない。また、重厚なパートが開始するときに一番下のプロットでハイハットがフェードインしてくることにも注目してほしい。ハイハット、シンバル等のドラムパートのすべてがプロットの中で認識できるだろう。
+
+<!--
+A pure acoustic song, performed by yours truely. The detector picks up the guitar extemely well. You can see the 3/4 rythm easily in all three plots. The voice does not have a big impact on the detector.
+-->
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HjTb2F91z4k" frameborder="0" allowfullscreen></iframe>
+
+yours truely の演奏による、純粋なアコースティックの曲。検出器はギターを非常によく見分けている。3 つのプロットすべてで 3/4 のリズムを容易に確認することができる。声は検出器にあまり大きな影響を与えない。
+
+<!--
+Jazz is said to be extremely hard for onset detectors. A lot of notes a player simultaniously or near simultaniously. Also, a lot of the frequency range is used up. In this example the instrument governing the rythm is again the drums as well as a little bit of bass which are picked up by the detector. However, in the beginning it’s the piano which does the rythm section. Again the detector does its job pretty well. Note how the clapping at the beginning makes the detector go a bit crazy. The clapping is basically just random noise as far as the detector is concerned, so he tries his best to pick what might be rythmical patterns.
+-->
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b5Pry_2xdtU" frameborder="0" allowfullscreen></iframe>
+
+ジャズは音の立ち上がり検出器にとって非常に難しい対象だと言われている。非常にたくさんの音をプレイヤーが同時またはほぼ同時に演奏するからだ。また、たくさんの周波数帯が使い尽くされている。この例ではリズムを支配している楽器は再びドラムと少しのベースで、これは検出器にも見分けられている。しかし、曲のはじまりでリズムセクションの役割を果たしているのはピアノだ。再び検出器はかなりうまく機能している。曲のはじまりの拍手が検出器を少し狂わせているのにも注目してほしい。拍手は基本的には検出器にとっては単なるランダムなノイズに過ぎないのだが、ベストを尽くしてリズムパターンと思われるものを選別しようとしているのだ。
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/l_h6jAYsHzg" frameborder="0" allowfullscreen></iframe>
+
+<!--
+Classic is the nightmare of every onset detector, especially when the composition is composed of string insturments only as in this play by Mozart. The beat detector picks up quiet some of the heavy attack strokes but anything with vibrato is a mess. It still performs better than Audiosurf in that regard though.
+-->
+
+クラシックは音の立ち上がり検出器にとっては悪夢だ。このモーツァルトの演奏のように楽曲が弦楽器だけで構成されている場合は特にそう。ビート検出器は重厚な
+TODO
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/X-LsRBW0cqI" frameborder="0" allowfullscreen></iframe>
+
+<!--
+Finally some Metal by In-Flames. What’s interesting is that the snare has the most energy. Not so for the kick drum which is actually pretty silent compared to the rest of the song. If you’d look at the complete frequency spectrum of this song you’d see one big messy heatmap (at least i use a heatmap for frequency spectrums). The hi-hat is not really picked up by the detector that well as it is played open which produces a quiet noisy sound without a lot of energy.
+-->
+
+最後に In-Flames によるメタル。興味深いのはスネアが一番エネルギーを持っていることだ。バスドラムにはそこまでエネルギーはなく、実際曲のその他の部分に比べるとかなり静かだ。この曲の完全な周波数スペクトラムを見てみると、1 つのおおきな混沌としたヒートマップのようだということが分かるだろう。 (少なくとも私は周波数スペクトラムのためにヒートマップを使う。) 検出器はハイハットをあまりうまく選別できていない。というのはハイハットがオープンの状態で打たれるとあまり大きなエネルギーを出さず、静かでノイズの混じった音を出すからである。
+
+<!--
+The next video shows all the excerpts form above mixed down to a single mp3 and played in Audiosurf. The outcome might be different when feeding each excerpt seperately to Audiosurf but that would have been to tedious :)
+-->
+
+次の動画は上記すべての抜粋した形式を 1 つの mp3 にミックスダウンして Audiosurf でプレイした様子だ。それぞれの抜粋を別々に Audiosurf に与えたら違った結果になったかもしれないが、面倒くさいのでやらなかった :)
+ 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZAhGd0xu3Aw" frameborder="0" allowfullscreen></iframe>
+
+<!--
+For “Hit me baby one more time” Audiosurf generates blocks for the snare and sometimes for the kick. “Weak and Powerless” also produces blocks mostly for the hi-hat/cymbals/ride. “Explosivo” is a bit strange. At first sight it does not have any resamblance to the song. But if you look closer it becomes clear that the blocks are based on the singing! I guess Audiosurf takes the peaks which are the loudest, in “Explosivos” case this is the singing most of the time. The next song is a mix between singing and guitar strokes. For the jazz song the piano is not picked up in the beginning it seems but the clapping is. The rest is governed by the ride. The classic piece is complete fail in the beginning and gets better towards the end. This seems to coincide with the volume of the violins going up. The last piece picks up the crash most of the time with some snare sounds mixed in. All in all it seems that Audiosurf does a frequency band analysis for various bands and then picks the loudest band to generate the blocks. This works out pretty well for popular music but does not perform so well for classic music it seems. What’s interesting is that for cloud connected i really wonder how the crash got picked up as i played around in audacity high pass filtering it quiet a lot and still couldn’t see peaks. Strange indeed :)
+-->
+
+"Hit me baby one more time" では Audiosurf はスネアと時々はキックに対してもブロックを生成する。"Weak and Powerless" でもほとんどすべてのハイハット/シンバル/ライドに対してブロックが生成される。"Explosivo" は少し変だ。一見すると原曲には全然似ていない。しかし詳しく観てみれば、ブロックが歌に基づいて生成されていることが分かるだろう！ Audiosurf は一番音の大きいピークを選んでおり、"Explosivo" の場合には演奏時間のほとんどでそれが歌だったのではないかと推測する。次の曲では歌とギターのストロークが混ざっている。ジャズの曲では冒頭のピアノは選別されていないように見えるが、拍手は選別されている。残りはライドの影響だ。クラシックの曲では最初のほうは完全に失敗しているが曲の終わりに近づくにつれて良くなっている。これはバイオリンの音量が上がっていくのと対応しているように見える。最後の曲では演奏時間のうちほとんどでクラッシュが選別され、そこにいくつかスネアの音も混ざっている。すべての場合において言えるのは、Audiosurf がさまざまな周波数帯に対して周波数帯分析を行い、一番大きな音を持つ周波数帯を選んでブロックを生成しているように見えるということだ。この方法はポップミュージックでは非常にうまく機能するが、クラシック音楽ではあまりうまく機能しないようだ。興味深いのは "cloud connected" でクラッシュが選別されたということで、この曲に audacity のハイパスフィルターを多めにかけていじってみてもピークを見つけることはできなかった。本当におかしいな :)
+
+<!--
+The onset detector we develop in this series of articles seems to be able to pick up all the onsets audiosurf detects (if we adjust it a bit for singing if we want that which should be rather easy). Maybe we can even come up with something more robust that also handles classical pieces a bit better than Audiosurf does.
+-->
+
+この記事シリーズで開発する音の立ち上がり検出器は audiosurf が検出するすべての音の立ち上がりを見分けることができるように見える。 (やりたければ歌向けにちょっと調整するのもそんなに難しくない。) おそらく Audiosurf より少しうまくクラシックの曲も扱える、頑強な検出器を作り出すことができるだろう。
