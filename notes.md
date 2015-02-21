@@ -5,6 +5,7 @@ permalink: /notes/
 ---
 
 <script type="text/javascript" src="/ja-odt-trans/js/coffee-script.js"></script>
+<script type="text/javascript" src="/ja-odt-trans/js/plot.js"></script>
 
 翻訳したついでに元記事で実装された機能を Web Audio API で作り直してみました。
 
@@ -39,7 +40,26 @@ permalink: /notes/
 
 ## Part 3
 
+### PlotExample
+
+<script type="text/coffeescript">
+{% include part3-plot-example.coffee %}
+</script>
+
+{% highlight coffeescript %}
+{% include part3-plot-example.coffee %}
+{% endhighlight %}
+
+<input id="part3-plot-example-file" type="file"><br />
+<canvas id="part3-plot-example-canvas" style="width:512px; height:512px" />
+
 ## Part 4
+
+### MP3Output
+
+(Part 2 の WaveOutput 参照)
+
+### RealTimePlot
 
 ## Part 5
 
