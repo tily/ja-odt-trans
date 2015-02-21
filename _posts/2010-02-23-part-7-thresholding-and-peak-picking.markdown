@@ -25,7 +25,7 @@ The threshold function is actually pretty simple. Given our spectral flux functi
 
 しきい値機能は実際にはかなりシンプルだ。スペクトラル・フラックス機能があったとしてそれぞれのスペクトラル・フラックスの値のウィンドウの平均値を計算する。たとえば 3000 個のスペクトラル・フラックス値があり、それぞれが 1024 個のサンプル幅を持つスペクトラル・フラックスを表している。サンプリングレート 44100Hz の 1024 個のサンプルは約 43ms の時間に相当する。しきい値の機能に利用する幅のサイズはなんらかの時間の値から派生させるべきであり、たとえば 0.5 秒間のスペクトラル・フラックスの平均値がほしい。つまり 0.5 / 0.0043 = 11 個のサンプル幅、すなわち 11 個のスペクトラル・フラックス値の平均だ。それぞれのスペクトラル・フラックス値について、直前の 5 個と直後の 5 個の値と現在の値をとり、平均値を計算する。このようにしてそれぞれのスペクトラル・フラックス値についてしきい値と呼ばれる 1 の値が得られる。(その理由はすぐに明らかになる。) これを行うコードが下記だ:
 
-```java
+{% highlight java %}
 public class Threshold 
 {
    public static final String FILE = "samples/explosivo.mp3";	
@@ -75,7 +75,7 @@ public class Threshold
       new PlaybackVisualizer( plot, 1024, new MP3Decoder( new FileInputStream( FILE ) ) );
    }
 }
-```
+{% endhighlight %}
 
 <!--
 Not a lot of new things in there. First we calculate the spectral flux function as we did in the last article. Based on this spectral flux function we then calculate the threshold function. For each spectral flux value in the ArrayList spectralFlux we take the THRESHOLD_WINDOW_SIZE spectral flux values before and after it and calculate the average. The resulting mean value is then stored in an ArrayList called threshold. Note that we also multiply each threshold value by MULTIPLIER which is set to 1.5 in this example. After we finished calculating all our functions we plot them. The result looks like this:
@@ -97,7 +97,7 @@ Now let us combine the spectral flux function and the threshold function. Basica
 
 さてスペクトラル・フラックス機能としきい値機能を連結させよう。基本的にはしきい値機能以上の値を持つ除去版スペクトラルフラックス機能がほしい。上記のプログラムを拡張し、下記の行を追加する:
 
-```java
+{% highlight java %}
 for( int i = 0; i < threshold.size(); i++ )
 {
    if( threshold.get(i) <= spectralFlux.get(i) )
@@ -105,7 +105,7 @@ for( int i = 0; i < threshold.size(); i++ )
    else
       prunnedSpectralFlux.add( (float)0 );
 }
-```
+{% endhighlight %}
 
 <!--
 The variable prunnedSpectralFlux is just another ArrayList. The loop is pretty simple, we add zero to the prunnedSpectralFlux list of the current spectral flux is less than the corresponding threshold function value or we add the spectrul flux value minus the threshold value at position i. The resulting prunned spectral flux function looks like this:
@@ -121,7 +121,7 @@ Awesome, we are nearly finished! All that is left is to search for peaks in this
 
 すばらしい、あとちょっとで完了だ！ 残りはこの除去版スペクトラル・フラックスの中のピークを探すだけだ。ピークは次の値より大きい値のことだ。ピーク検出というのはただそれだけのことだ。ほぼ完了したようなもの。peak という ArrayList を生成するピーク検出の小さなコードを書いてみよう:
 
-```java
+{% highlight java %}
 for( int i = 0; i < prunnedSpectralFlux.size() - 1; i++ )
 {
    if( prunnedSpectralFlux.get(i) > prunnedSpectralFlux.get(i+1) )
@@ -129,7 +129,7 @@ for( int i = 0; i < prunnedSpectralFlux.size() - 1; i++ )
    else
       peaks.add( (float)0 );				
 }
-```
+{% endhighlight %}
 
 <!--
 And that's it. Any value > 0 in the ArrayList peaks is an onset or beat now. To calculate the point in time for each peak in peaks we simply take its index and multiply it by the time span that the original sample window takes up. Say we used a sample window of 1024 samples at a sampling rate of 44100Hz then we have the simple forumula time = index * (1024 / 44100). That's it. Here's the output:

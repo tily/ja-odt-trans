@@ -117,7 +117,7 @@ Let’s write a small program that calculates and visualizes the spectral flux o
 
 ある mp3 ファイルのスペクトラル・フラックスを計算して可視化する小さなプログラムを書いてみよう:
 
-```java
+{% highlight java %}
 public class SpectralFlux 
 {
    public static final String FILE = "samples/judith.mp3";	
@@ -148,7 +148,7 @@ public class SpectralFlux
       new PlaybackVisualizer( plot, 1024, new MP3Decoder( new FileInputStream( FILE ) ) );
    }
 }
-```
+{% endhighlight %}
 
 <!--
 We start of by instantiating a decoder that will read in the samples from an mp3 file. We also instantiate an FFT object telling it to expect sample windows of 1024 samples and a sampling rate of 44100Hz. Next we create a float array for the samples we read from the decoder. We use a window size of 1024 samples. The next two lines instantiate auxiliary float arrays that will contain the current spectrum and the last spectrum. Finally we also need a place to write the spectral flux for each sample window to, an ArrayList will do the job here.
@@ -176,7 +176,7 @@ Before we do any peak detection we have to clean up the spectral flux function a
 
 ピーク検出を行う前にスペクトラル・フラックス関数を少しだけ整理しなければならない。スペクトラル・フラックスの値が負の数のとき無視するようにすることからはじめよう。降下するスペクトラル・フラックスではなく、上昇するスペクトラル・フラックスにだけ興味があるからだ。負のスペクトラル・フラックスの値を無視するプロセスは「整流」(rectifying) と呼ばれる。これがスペクトラル・フラックスを計算するループを修正したものだ。
 
-```java
+{% highlight java %}
    float flux = 0;
    for( int i = 0; i < spectrum.length; i++ )			
    {
@@ -184,7 +184,7 @@ Before we do any peak detection we have to clean up the spectral flux function a
       flux += value < 0? 0: value;
    }
    spectralFlux.add( flux );
-```
+{% endhighlight %}
 
 <!--
 And the corresponding output:
@@ -206,9 +206,9 @@ Another clean up process is using a so called Hamming window. This Hamming windo
 
 もう 1 つ整理するプロセスとしていわゆるハミング窓を使う。このハミング窓というのはフーリエ変換の計算を行う前にサンプルに適用される。これはサンプルをちょっとよくする平滑剤のような役割を果たす。FFT クラスはハミング窓による平滑化を有効にする機能を持っている。
 
-```java
+{% highlight java %}
 fft.window(FFT.HAMMING);
-```
+{% endhighlight %}
 
 <!--
 That's all there is to do, here's the result:

@@ -83,7 +83,7 @@ Yes, that’s it. The x-axis corresponds to the frequency bins while the y-axis 
 
 そう、これだけ。x 軸は周波数の瓶に対応し、y 軸は周波数の瓶の振幅を表している。左側にピークが存在し、スペクトラムの残りはゼロであることがはっきりと分かる。このピークがは周波数 440Hz、つまり 1024 個のサンプルとして生成された A という音の周波数の瓶に対応している。また、すっきりとしたピークではなく、左と右の瓶もいくらか振幅を受け取っていることが分かる。これは漏れというものであり、解決することはできない。今回のケースではあまり大きな問題とはならないが、他のアプリケーションのシナリオでは問題を引き起こすこともあるだろう。上記 2 つの画像を生成するプログラムは下記のようになる：
 
-```java
+{% highlight java %}
 public class FourierTransformPlot 
 {
    public static void main( String[] argv )
@@ -109,7 +109,7 @@ public class FourierTransformPlot
       plotSpectrum.plot(fft.getSpectrum(), 1, Color.white );
    }
 }
-```
+{% endhighlight %}
 
 <!--
 The first couple of lines should be familiar, we simply generate 1024 samples at a sampling rate of 44000Hz. There's actually only 2 interesting lines in this program. The first one is the one where we instantiate the FFT object. As parameters for it's constructor it wants the sample window size we'll use to generate the spectrum as well as the sampling rate. The next line performs the Fourier transform as well as the spectrum calculation. All we have to do is pass in a float array of samples having the size we specified in the FFT constructor. That's all we need to do to get our precious frequency bins. What's left is plotting the samples as well as the spectrum. Note the call to fft.getSpectrum(). This method will return the spectrum of the last fourier transform we did by calling FFT.forward().
