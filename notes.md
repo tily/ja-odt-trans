@@ -17,12 +17,12 @@ permalink: /notes/
 {% include part2-note-generator.coffee %}
 </script>
 
+<button id="part2-note-generator-play">play</button>
+<button id="part2-note-generator-pause">pause</button>
+
 {% highlight coffeescript %}
 {% include part2-note-generator.coffee %}
 {% endhighlight %}
-
-<button id="part2-note-generator-play">play</button>
-<button id="part2-note-generator-pause">pause</button>
 
 ### WaveOutput
 
@@ -30,13 +30,13 @@ permalink: /notes/
 {% include part2-wave-output.coffee %}
 </script>
 
-{% highlight coffeescript %}
-{% include part2-wave-output.coffee %}
-{% endhighlight %}
-
 <input id="part2-wave-output-file" type="file">
 <button id="part2-wave-output-play">play</button>
 <button id="part2-wave-output-pause">pause</button>
+
+{% highlight coffeescript %}
+{% include part2-wave-output.coffee %}
+{% endhighlight %}
 
 ## Part 3
 
@@ -46,12 +46,12 @@ permalink: /notes/
 {% include part3-plot-example.coffee %}
 </script>
 
+<input id="part3-plot-example-file" type="file"><br />
+<canvas id="part3-plot-example-canvas" style="width:512px; height:512px" />
+
 {% highlight coffeescript %}
 {% include part3-plot-example.coffee %}
 {% endhighlight %}
-
-<input id="part3-plot-example-file" type="file"><br />
-<canvas id="part3-plot-example-canvas" style="width:512px; height:512px" />
 
 ## Part 4
 
@@ -61,7 +61,32 @@ permalink: /notes/
 
 ### RealTimePlot
 
+<script type="text/coffeescript">
+{% include part4-real-time-plot.coffee %}
+</script>
+
+<input id="part4-real-time-plot-file" type="file">
+<button id="part4-real-time-plot-play">play</button>
+<button id="part4-real-time-plot-pause">pause</button><br />
+<canvas id="part4-real-time-plot-canvas" style="width:512px; height:512px;" />
+
+{% highlight coffeescript %}
+{% include part4-real-time-plot.coffee %}
+{% endhighlight %}
+
 ## Part 5
+
+### FourierTransformPlot
+
+<script type="text/coffeescript">
+{% include part5-fourier-transform-plot.coffee %}
+</script>
+
+<canvas id="part5-fourier-transform-plot-canvas" style="width:512px; height:512px;" />
+
+{% highlight coffeescript %}
+{% include part5-fourier-transform-plot.coffee %}
+{% endhighlight %}
 
 ## Part 6
 
