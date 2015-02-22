@@ -1,7 +1,7 @@
 ---
 ---
 window.Plot = class Plot
-	constructor: (canvas, width, height, marker)->
+	constructor: (canvas, width, height)->
 		@canvas = canvas
 		@canvas.width = width
 		@canvas.height = height
@@ -25,7 +25,7 @@ window.Plot = class Plot
 			max = Math.max(max, sample)
 			min = Math.min(min, sample)
 		scalingFactor = max - min
-		lastValue = null
+		lastValue = (samples[0] / scalingFactor)  * @canvas.height / 3 + @canvas.height / 2
 		for sample, i in samples
 			value = (sample / scalingFactor)  * @canvas.height / 3 + @canvas.height / 2
 			@context.beginPath()
