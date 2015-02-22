@@ -5,6 +5,7 @@ permalink: /notes/
 ---
 
 <script type="text/javascript" src="/ja-odt-trans/js/coffee-script.js"></script>
+<script type="text/javascript" src="/ja-odt-trans/js/dsp.js"></script>
 <script type="text/javascript" src="/ja-odt-trans/js/plot.js"></script>
 
 翻訳したついでに元記事で実装された機能を Web Audio API で作り直してみました。
@@ -91,5 +92,20 @@ permalink: /notes/
 {% endhighlight %}
 
 ## Part 6
+
+### SpectralFlux
+
+<script type="text/coffeescript">
+{% include part6-spectral-flux.coffee %}
+</script>
+
+<input id="part6-spectral-flux-file" type="file">
+<button id="part6-spectral-flux-play">play</button>
+<button id="part6-spectral-flux-pause">pause</button><br />
+<canvas id="part6-spectral-flux-canvas" style="width:512px; height:512px;" />
+
+{% highlight coffeescript %}
+{% include part6-spectral-flux.coffee %}
+{% endhighlight %}
 
 ## Part 7
