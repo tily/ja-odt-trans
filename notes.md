@@ -100,8 +100,8 @@ permalink: /notes/
 </script>
 
 <input id="part6-spectral-flux-file" type="file">
-<button id="part6-spectral-flux-play">play</button>
-<button id="part6-spectral-flux-pause">pause</button><br />
+<button id="part6-spectral-flux-start">start</button>
+<button id="part6-spectral-flux-stop">stop</button><br />
 <canvas id="part6-spectral-flux-canvas" style="width:512px; height:512px;" />
 
 {% highlight coffeescript %}
