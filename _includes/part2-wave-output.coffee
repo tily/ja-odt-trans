@@ -4,7 +4,6 @@ class Part2WaveOutput
 		@file.onchange = @onfilechange
 		@context = new AudioContext()
 		@source = @context.createBufferSource()
-		@stream = null
 		@reader = new FileReader()
 		@reader.onload = @onfileload
 	onfilechange: (e)=>
