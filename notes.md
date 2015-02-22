@@ -82,6 +82,8 @@ permalink: /notes/
 {% include part5-fourier-transform-plot.coffee %}
 </script>
 
+<button id="part5-fourier-transform-plot-play">play</button>
+<button id="part5-fourier-transform-plot-pause">pause</button><br />
 <canvas id="part5-fourier-transform-plot-canvas" style="width:512px; height:512px;" />
 
 {% highlight coffeescript %}
