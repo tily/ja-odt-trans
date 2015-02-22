@@ -27,8 +27,7 @@ window.Plot = class Plot
 		scalingFactor = max - min
 		lastValue = null
 		for sample, i in samples
-			#value = (sample / scalingFactor)  * @canvas.height / 3 + @canvas.height / 2
-			value = (sample / scalingFactor)  * @canvas.height + @canvas.height / 2
+			value = (sample / scalingFactor)  * @canvas.height / 3 + @canvas.height / 2
 			@context.beginPath()
 			@context.moveTo (i-1) / samplesPerPixel, @canvas.height - lastValue
 			@context.lineTo i / samplesPerPixel, @canvas.height - value
